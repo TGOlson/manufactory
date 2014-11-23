@@ -1,4 +1,4 @@
-var Factory = require('./factory');
+var Factory = require('./manufactory');
 
 describe('Factory', function() {
   it('should automatically load any fixtures', function() {
