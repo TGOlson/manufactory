@@ -16,3 +16,8 @@ describe('User', function() {
 });
 
 ```
+
+#### TODO:
+
+* Add asynch options (define save method and pass in callbacks)
+* Find a way to incorporate `Factory.build` into fixture declaration

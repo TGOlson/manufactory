@@ -1,6 +1,8 @@
 var Factory = require('./manufactory');
 
 describe('Factory', function() {
+  function noop() {}
+
   it('should automatically load any fixtures', function() {
     var user = Factory._fixtures.user;
     expect(user).toBeDefined();
@@ -36,10 +38,33 @@ describe('Factory', function() {
   });
 
   describe('build', function() {
+    var userProps = {name: 'Jim'};
+
+    beforeEach(function() {
+      Factory._fixtures.user = userProps;
+    });
+
     it('should return the fixture if one exists', function() {
-      Factory._fixtures.user = {name: 'Jim'};
       var user = Factory.build('user');
-      expect(user).toEqual({name: 'Jim'});
+      expect(user).toEqual(userProps);
+    });
+
+    it('should invoke a callback if one is passed in', function() {
+      var container = {callback: noop};
+
+      spyOn(container, 'callback');
+
+      Factory.build('user', container.callback);
+      expect(container.callback).toHaveBeenCalled();
+    });
+
+    it('should pass the newly created fixture to the callback if one invoked', function() {
+      var container = {callback: noop};
+
+      spyOn(container, 'callback');
+
+      Factory.build('user', container.callback);
+      expect(container.callback).toHaveBeenCalledWith(userProps);
     });
   });
 });
