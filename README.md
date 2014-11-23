@@ -31,7 +31,7 @@ Define a fixture. Fixtures created in a `fixtures` directory will be automatical
 // ./fixtures/user.js
 
 // module must be required when defining fixtures
-require('manufactory).includeMethods();
+require('manufactory').includeMethods();
 
 var User = require('../models/user');
 
@@ -41,6 +41,8 @@ define(User, {
   email: 'jim@aol.com'
 });
 ```
+
+Use the fixture during tests
 
 ```js
 require('manufactory').includeMethods();
