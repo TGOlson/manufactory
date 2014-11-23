@@ -4,13 +4,13 @@ describe('Factory', function() {
   function noop() {}
 
   it('should automatically load any fixtures', function() {
-    var user = Factory._fixtures.user;
+    var user = Factory._fixtures.User;
     expect(user).toBeDefined();
   });
 
   it('should keep the fixture properties intact', function() {
-    var user = Factory._fixtures.user;
-    expect(user.name).toBe('Tyler');
+    var user = Factory._fixtures.User;
+    expect(user.name).toBe('Jim');
   });
 
   describe('includeMethods', function() {
@@ -21,19 +21,19 @@ describe('Factory', function() {
 
     it('should set the define method on the global scope', function() {
       Factory.includeMethods();
-      expect(define).toBe(Factory.define);
+      expect(define).toBeDefined();
     });
 
     it('should set the build method on the global scope', function() {
       Factory.includeMethods();
-      expect(build).toBe(Factory.build);
+      expect(build).toBeDefined();
     });
   });
 
   describe('define', function() {
     it('should add the fixtures to the factory fixture list', function() {
-      Factory.define('user', {name: 'Jim'});
-      expect(Factory._fixtures.user).toEqual({name: 'Jim'});
+      Factory.define('User', {name: 'Jim'});
+      expect(Factory._fixtures.User).toEqual({name: 'Jim'});
     });
   });
 
@@ -41,11 +41,11 @@ describe('Factory', function() {
     var userProps = {name: 'Jim'};
 
     beforeEach(function() {
-      Factory._fixtures.user = userProps;
+      Factory._fixtures.User = userProps;
     });
 
     it('should return the fixture if one exists', function() {
-      var user = Factory.build('user');
+      var user = Factory.build('User');
       expect(user).toEqual(userProps);
     });
 
@@ -54,7 +54,7 @@ describe('Factory', function() {
 
       spyOn(container, 'callback');
 
-      Factory.build('user', container.callback);
+      Factory.build('User', container.callback);
       expect(container.callback).toHaveBeenCalled();
     });
 
@@ -63,7 +63,7 @@ describe('Factory', function() {
 
       spyOn(container, 'callback');
 
-      Factory.build('user', container.callback);
+      Factory.build('User', container.callback);
       expect(container.callback).toHaveBeenCalledWith(userProps);
     });
   });
